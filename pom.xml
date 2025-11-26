@@ -12,9 +12,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.4</version> 
-    <relativePath/> 
+    <version>3.2.4</version>
+    <relativePath/>
   </parent>
+
+  <properties>
+    <java.version>17</java.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -53,15 +57,13 @@
   <build>
     <plugins>
 
-      <!-- Spring Boot plugin (already present) -->
+      <!-- Spring Boot Plugin -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
 
-      <!-- ===================================== -->
-      <!-- 1) JaCoCo Plugin (Code Coverage)       -->
-      <!-- ===================================== -->
+      <!-- JaCoCo Plugin -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -83,13 +85,28 @@
         </executions>
       </plugin>
 
-      <!-- ===================================== -->
-      <!-- 2) Sonar Scanner Plugin               -->
-      <!-- ===================================== -->
+      <!-- SonarQube Scanner Plugin -->
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.9.1.2184</version>
+        <configuration>
+          <sonar.projectKey>test-master-pro</sonar.projectKey>
+          <sonar.projectName>Test Master Pro</sonar.projectName>
+          <sonar.projectVersion>1.0</sonar.projectVersion>
+
+          <!-- sources & tests -->
+          <sonar.sources>src/main/java</sonar.sources>
+          <sonar.tests>src/test/java</sonar.tests>
+
+          <!-- compiled classes -->
+          <sonar.java.binaries>target/classes</sonar.java.binaries>
+
+          <!-- Reports -->
+          <sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
+          <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+          <sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
+        </configuration>
       </plugin>
 
     </plugins>
